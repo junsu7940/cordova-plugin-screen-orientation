@@ -28,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.pm.ActivityInfo;
+import android.provider.Settings;
 import android.util.Log;
 
 public class CDVOrientation extends CordovaPlugin {
@@ -55,6 +57,11 @@ public class CDVOrientation extends CordovaPlugin {
         // Route the Action
         if (action.equals("screenOrientation")) {
             return routeScreenOrientation(args, callbackContext);
+        }
+
+        // Find Rotate Type
+        if (action.equals("rotateType")){
+            return getAutoRotateType(args,callbackContext);
         }
         
         // Action not found
@@ -95,4 +102,18 @@ public class CDVOrientation extends CordovaPlugin {
         
         
     }
+
+    private boolean getAutoRotateType(JSONArray args, CallbackContext callbackContext){
+        ContentResolver resolver = cordova.getActivity().getApplicationContext().getContentResolver();
+        try{
+            int rotateType = Settings.System.getInt(resolver, Settings.System.ACCELEROMETER_ROTATION);
+            Log.d(" rotateType: ", String.valueOf(rotateType));
+            callbackContext.success(rotateType); 
+        }catch(Settings.SettingNotFoundException e){
+            e.printStackTrace();
+        }
+        
+        return true;
+    }
+
 }
