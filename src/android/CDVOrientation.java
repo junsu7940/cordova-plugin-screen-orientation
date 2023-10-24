@@ -107,7 +107,7 @@ public class CDVOrientation extends CordovaPlugin {
         ContentResolver resolver = cordova.getActivity().getApplicationContext().getContentResolver();
         try{
             int rotateType = Settings.System.getInt(resolver, Settings.System.ACCELEROMETER_ROTATION);
-            Log.d(" rotateType: ", String.valueOf(rotateType));
+            Log.d("rotateType: ", String.valueOf(rotateType));
             callbackContext.success(rotateType); 
         }catch(Settings.SettingNotFoundException e){
             e.printStackTrace();
