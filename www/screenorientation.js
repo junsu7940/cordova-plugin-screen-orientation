@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-screen-orientation.screenorientation", function(require, exports, module) {
     var screenOrientation = {};
     if (!window.OrientationType) {
         window.OrientationType = {
@@ -130,4 +129,3 @@ cordova.define("cordova-plugin-screen-orientation.screenorientation", function(r
     });
     
     module.exports = screenOrientation;
-    });
